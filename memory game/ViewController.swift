@@ -26,6 +26,8 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -45,10 +47,14 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! CollectionViewCell
         cell.label.text = faceDown
+        if (indexPath.section == 0 && indexPath.row == 0){ firstCardCell = cell }
+        if (indexPath.section == 0 && indexPath.row == 1){ secondCardCell = cell }
+        
         return cell
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! CollectionViewCell
+        
         // reset prev attempt
         if (firstCardCell.label.text != "?" && secondCardCell.label.text != "?"){
             firstCardCell.label.text = "?"
