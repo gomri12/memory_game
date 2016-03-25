@@ -2,75 +2,77 @@
 //  ViewController.swift
 //  memory game
 //
-//  Created by omri ios on 3/21/16.
+//  Created by omri & noy on 3/21/16.
 //  Copyright © 2016 omri ios. All rights reserved.
 //
+
 
 import UIKit
 
 class ViewController: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    let faceDown = "?"
-    let cards = ["A","B","C",
-                 "D","E","F",
-                 "G","H","I",
-                 "J","K","L",
-                 "M","N","O",
-                 "P","Q","R",
-                 "S","T","U"]
-    var firstCardCell = CollectionViewCell()
-    var secondCardCell = CollectionViewCell()
+    @IBOutlet weak var scoreLabel: UILabel!
+    let rows = 5
+    let cols = 4
     
+    var game: GameController!
+    
+    @IBAction func restart_btn(sender: AnyObject) {
+        resetGame()
+    }
+    func resetGame(){
+        game.reset()
+        scoreLabel.text = "0/\(rows * cols / 2)"
+        self.collectionView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.collectionView.scrollEnabled=false
+        self.collectionView.pagingEnabled=false
         
-        
-        
-        // Do any additional setup after loading the view, typically from a nib.
+        game = GameController(rows:cols,cols:rows)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        //TODO: Relative cells it for me. when was the last push?
+        return cols
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 6
+        return rows
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! CollectionViewCell
-        cell.label.text = faceDown
-        if (indexPath.section == 0 && indexPath.row == 0){ firstCardCell = cell }
-        if (indexPath.section == 0 && indexPath.row == 1){ secondCardCell = cell }
+        cell.label.text = game.faceDown
+        cell.mySelected = false
+        cell.showFace = false
+        
+        cell.backgroundColor = UIColor.blackColor()
+        // not nil fix...
+        if (indexPath.section == 0 && indexPath.row == 0){ game.firstCell = cell }
+        if (indexPath.section == 0 && indexPath.row == 1){ game.secondCell = cell }
         
         return cell
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! CollectionViewCell
         
-        // reset prev attempt
-        if (firstCardCell.label.text != "?" && secondCardCell.label.text != "?"){
-            firstCardCell.label.text = "?"
-            secondCardCell.label.text = "?"
+        let score = game.move(cell,indexPath:indexPath)
+        self.scoreLabel.text = "\(score)/\(rows * cols / 2)"
+        if (score == rows * cols / 2){
+            //won the game
+            let alert = UIAlertController(title: "You Won", message: "Great Job Dude!", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title:"Yay!",style: .Default,handler: {(action:UIAlertAction!) in self.resetGame()}))
+            showViewController(alert, sender: nil)
+            
         }
-        // first card pick
-        if (firstCardCell.label.text=="?" && secondCardCell.label.text == "?"){
-            firstCardCell = cell
-        }
-        // second card pick
-        if (firstCardCell.label.text != "?" && secondCardCell.label.text == "?"){
-            secondCardCell = cell
-        }
-        
-        cell.label.text = cards[indexPath.section * 3 + indexPath.row]
     }
-//ani po aval lo yehol ledaber the boss go t iris near got it! I am watching tutorial so i am on and off on the code writing... ok.. u like to logo? too death-y it needs to bee innocentlal background! change to white yup...
 }
 

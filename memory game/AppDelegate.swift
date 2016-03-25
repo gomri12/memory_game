@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  memory game
+//  memory game 10x are you in afeka now?
 //
-//  Created by omri ios on 3/21/16.
+//  Created by omri & noy on 3/21/16.
 //  Copyright © 2016 omri ios. All rights reserved.
 //
 
