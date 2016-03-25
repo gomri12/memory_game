@@ -38,7 +38,7 @@ class GameController : NSObject {
     func initMatrix()
     {
         var times = 1
-        var intCharVal = 0x1F603
+        var intCharVal = 0x1F603 + arc4random_uniform(UInt32(20))
         var letter:Character = Character(UnicodeScalar(intCharVal))
         
         for i in 0..<rows{

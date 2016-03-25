@@ -15,7 +15,7 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
     @IBOutlet weak var scoreLabel: UILabel!
     let rows = 5
     let cols = 4
-    
+    let TileMargin = CGFloat(5.0)
     var game: GameController!
     
     @IBAction func restart_btn(sender: AnyObject) {
@@ -40,12 +40,24 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //TODO: Relative cells it for me. when was the last push?
+        //TODO: Relative cells it for me. how do we megishim lol submit  think with github
+        //ok you finisheD? I wanted to add some feature to the icons to be a bit different...
+        // some thing like random icon eache initmat ok
         return cols
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return rows
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let colsCount = CGFloat(cols)
+        let dimentions = collectionView.frame.width / colsCount - (colsCount * TileMargin * 0.8)
+        return CGSize(width: dimentions, height: dimentions) 
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(TileMargin, TileMargin, TileMargin, TileMargin)
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
