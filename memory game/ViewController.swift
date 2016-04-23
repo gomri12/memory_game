@@ -17,14 +17,59 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
     let cols = 4
     let TileMargin = CGFloat(5.0)
     var game: GameController!
+    var timer = NSTimer()
+    var startTime = NSTimeInterval()
+
+    @IBOutlet weak var timeLabel: UILabel!
     
     @IBAction func restart_btn(sender: AnyObject) {
         resetGame()
+        
     }
+    
+    
+    func updateTime() {
+        
+        let currentTime = NSDate.timeIntervalSinceReferenceDate()
+        //Find the difference between current time and start time.
+        
+        var elapsedTime: NSTimeInterval = currentTime - startTime
+        
+        //calculate the minutes in elapsed time.
+        
+        let minutes = UInt8(elapsedTime / 60.0)
+        
+        elapsedTime -= (NSTimeInterval(minutes) * 60)
+        
+        //calculate the seconds in elapsed time.
+        
+        let seconds = UInt8(elapsedTime)
+        
+        elapsedTime -= NSTimeInterval(seconds)
+        
+        //find out the fraction of milliseconds to be displayed.
+        
+        let fraction = UInt8(elapsedTime * 100)
+        
+        //add the leading zero for minutes, seconds and millseconds and store them as string constants
+        
+        let strMinutes = String(format: "%02d", minutes)
+        let strSeconds = String(format: "%02d", seconds)
+        let strFraction = String(format: "%02d", fraction)
+        
+        //concatenate minuets, seconds and milliseconds as assign it to the UILabel
+        
+        timeLabel.text = "\(strMinutes):\(strSeconds):\(strFraction)"
+        
+    }
+    
     func resetGame(){
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.01,target: self, selector: Selector("updateTime"), userInfo: nil, repeats: true)
+        startTime = NSDate.timeIntervalSinceReferenceDate()
         game.reset()
         scoreLabel.text = "0/\(rows * cols / 2)"
         self.collectionView.reloadData()
+        
     }
     
     override func viewDidLoad() {
@@ -33,6 +78,7 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
         self.collectionView.pagingEnabled=false
         
         game = GameController(rows:cols,cols:rows)
+        resetGame()
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,6 +126,7 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
         self.scoreLabel.text = "\(score)/\(rows * cols / 2)"
         if (score == rows * cols / 2){
             //won the game
+            timer.invalidate()
             let alert = UIAlertController(title: "You Won", message: "Great Job Dude!", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title:"Yay!",style: .Default,handler: {(action:UIAlertAction!) in self.resetGame()}))
             showViewController(alert, sender: nil)
