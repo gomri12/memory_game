@@ -8,18 +8,25 @@
 
 
 import UIKit
+import CoreData
+import Foundation
+
 
 class ViewController: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var scoreLabel: UILabel!
-    let rows = 5
-    let cols = 4
+    let rows = 1
+    let cols = 2
     let TileMargin = CGFloat(5.0)
     var game: GameController!
+    var userList = [User]()
     var timer = NSTimer()
     var startTime = NSTimeInterval()
-
+//    var appDel:AppDelegate!
+//    var context:NSManagedObjectContext!
+    var textField : UITextField!
+    
     @IBOutlet weak var timeLabel: UILabel!
     
     @IBAction func restart_btn(sender: AnyObject) {
@@ -73,7 +80,10 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        
         self.collectionView.scrollEnabled=false
         self.collectionView.pagingEnabled=false
         
@@ -127,11 +137,119 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
         if (score == rows * cols / 2){
             //won the game
             timer.invalidate()
-            let alert = UIAlertController(title: "You Won", message: "Great Job Dude!", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title:"Yay!",style: .Default,handler: {(action:UIAlertAction!) in self.resetGame()}))
-            showViewController(alert, sender: nil)
+//            let alert = UIAlertController(title: "You Won", message: "Great Job Dude!", preferredStyle: UIAlertControllerStyle.Alert)
+//            alert.addAction(UIAlertAction(title:"Yay!",style: .Default,handler: {(action:UIAlertAction!) in self.resetGame()}))
+//            showViewController(alert, sender: nil)
             
+            let currentTime = NSDate.timeIntervalSinceReferenceDate()
+            let elapsedTime: NSTimeInterval = currentTime - self.startTime
+            let seconds = Int(elapsedTime)
+            // 30 seconds to a pair
+            let badTime = rows*cols/2 * 30
+            // 15 seconds to a pair
+            let graetTime = rows*cols/2 * 15
+            
+            var calcedScore = score
+            var mTitle = "You Scored \(score)"
+            if (seconds > badTime){
+                calcedScore -= score/2
+                mTitle += " - \(score/2)"
+            }
+            else if (seconds < graetTime) {
+                calcedScore += score/2
+                mTitle += " + \(score/2)"
+            }
+            
+            //1. Create the alert controller.
+
+            let alert = UIAlertController(title: mTitle , message: "Enter Your Name:", preferredStyle: .Alert)
+            
+            //2. Add the text field. You can configure it however you need.
+            alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+                textField.text = ""
+            })
+            
+            //3. Grab the value from the text field, and print it when the user clicks OK.
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                let textField = alert.textFields![0] as UITextField
+                
+                print("Text field: \(textField.text)")
+                
+                self.saveGame(textField.text!, score: score)
+                self.highScorePopup()
+
+            }))
+            
+            // 4. Present the alert.
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
+    
+    func getAllPlayers(){
+
+        //1
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        //2
+        let fetchRequest = NSFetchRequest(entityName: "Users")
+        
+        //3
+        do {
+            let results =
+            try managedContext.executeFetchRequest(fetchRequest)
+            
+            for  user in results {
+                print(user.valueForKey("username"))
+                print(user.valueForKey("score"))
+                let name = user.valueForKey("username") as! String
+                let score = user.valueForKey("score") as! String
+                let ustemp = User(name: name, score: score)
+                userList.append(ustemp)
+            }
+            
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+    }
+    
+    
+    func highScorePopup(){
+        getAllPlayers()
+        //TODO: Sort The ARRAY!@$!
+        
+        let popup = UIAlertController(title: "Top 10 Players", message: "", preferredStyle: .Alert)
+        
+        for user in userList{
+            popup.addAction((UIAlertAction(title: user.name+"   Score:"+user.score, style: UIAlertActionStyle.Default,handler: nil)))
+        }
+        self.presentViewController(popup, animated: true, completion: nil)
+
+    }
+    
+    func saveGame(playerName : String, score: Int){
+        
+        let appDel:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext:NSManagedObjectContext = appDel.managedObjectContext
+        
+        let entity = NSEntityDescription.entityForName("Users", inManagedObjectContext: managedContext)
+        let newUser = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        
+        newUser.setValue(playerName , forKey: "username")
+        newUser.setValue("\(score)", forKey: "score")
+
+        
+        do{
+            try managedContext.save()
+            print("Name Was Saved!")
+        }catch{
+            fatalError("Failure to save context: \(error)")
+        }
+
+    }
+    
 }
 

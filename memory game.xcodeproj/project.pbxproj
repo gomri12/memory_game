@@ -16,6 +16,8 @@
 		FB4223971CA040FD009E025D /* unnamed.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4223961CA040FD009E025D /* unnamed.png */; };
 		FB4223BC1CA3EAFE009E025D /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4223BB1CA3EAFE009E025D /* CollectionViewCell.swift */; };
 		FB4223BE1CA42FC1009E025D /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4223BD1CA42FC1009E025D /* GameController.swift */; };
+		FB4CB7441CCE6CFC00B92114 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4CB7431CCE6CFC00B92114 /* CoreData.framework */; };
+		FB690D7B1CD26E200055CA40 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB690D7A1CD26E200055CA40 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		FB4223961CA040FD009E025D /* unnamed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unnamed.png; path = ../../../Downloads/unnamed.png; sourceTree = "<group>"; };
 		FB4223BB1CA3EAFE009E025D /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		FB4223BD1CA42FC1009E025D /* GameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
+		FB4CB7431CCE6CFC00B92114 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FB690D7A1CD26E200055CA40 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB4CB7441CCE6CFC00B92114 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +51,7 @@
 		FB4223741CA03BA5009E025D = {
 			isa = PBXGroup;
 			children = (
+				FB4CB7431CCE6CFC00B92114 /* CoreData.framework */,
 				FB42237F1CA03BA5009E025D /* memory game */,
 				FB42237E1CA03BA5009E025D /* Products */,
 			);
@@ -72,6 +78,7 @@
 				FB42238F1CA03BA5009E025D /* Info.plist */,
 				FB4223871CA03BA5009E025D /* memory_game.xcdatamodeld */,
 				FB4223BD1CA42FC1009E025D /* GameController.swift */,
+				FB690D7A1CD26E200055CA40 /* User.swift */,
 			);
 			path = "memory game";
 			sourceTree = "<group>";
@@ -158,6 +165,7 @@
 			files = (
 				FB4223891CA03BA5009E025D /* memory_game.xcdatamodeld in Sources */,
 				FB4223BE1CA42FC1009E025D /* GameController.swift in Sources */,
+				FB690D7B1CD26E200055CA40 /* User.swift in Sources */,
 				FB4223831CA03BA5009E025D /* ViewController.swift in Sources */,
 				FB4223BC1CA3EAFE009E025D /* CollectionViewCell.swift in Sources */,
 				FB4223811CA03BA5009E025D /* AppDelegate.swift in Sources */,
