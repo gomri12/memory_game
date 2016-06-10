@@ -16,8 +16,8 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var scoreLabel: UILabel!
-    let rows = 1
-    let cols = 2
+    let rows = 5
+    let cols = 4
     let TileMargin = CGFloat(5.0)
     var game: GameController!
     var userList = [User]()
@@ -34,6 +34,10 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
         
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+    }
     
     func updateTime() {
         
@@ -79,6 +83,9 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
         
     }
     
+    @IBAction func highScoreBTN(sender: AnyObject) {
+        self.highScorePopup()
+    }
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -210,11 +217,14 @@ class ViewController: UIViewController,UICollectionViewDelegate, UICollectionVie
                 userList.append(ustemp)
             }
             
+            
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
+        userList.sortInPlace { $0.score.compare($1.score) == .OrderedDescending }
     }
-    
+
+
     
     func highScorePopup(){
         getAllPlayers()

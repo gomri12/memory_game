@@ -18,6 +18,8 @@
 		FB4223BE1CA42FC1009E025D /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4223BD1CA42FC1009E025D /* GameController.swift */; };
 		FB4CB7441CCE6CFC00B92114 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4CB7431CCE6CFC00B92114 /* CoreData.framework */; };
 		FB690D7B1CD26E200055CA40 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB690D7A1CD26E200055CA40 /* User.swift */; };
+		FB78BFDB1CD3778900112CC6 /* layer_sli_bg1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FB78BFDA1CD3778900112CC6 /* layer_sli_bg1.jpg */; };
+		FB78BFDD1CD378E600112CC6 /* VCMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB78BFDC1CD378E600112CC6 /* VCMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		FB4223BD1CA42FC1009E025D /* GameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		FB4CB7431CCE6CFC00B92114 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FB690D7A1CD26E200055CA40 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FB78BFDA1CD3778900112CC6 /* layer_sli_bg1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = layer_sli_bg1.jpg; path = ../../../Downloads/layer_sli_bg1.jpg; sourceTree = "<group>"; };
+		FB78BFDC1CD378E600112CC6 /* VCMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 				FB4223871CA03BA5009E025D /* memory_game.xcdatamodeld */,
 				FB4223BD1CA42FC1009E025D /* GameController.swift */,
 				FB690D7A1CD26E200055CA40 /* User.swift */,
+				FB78BFDC1CD378E600112CC6 /* VCMenu.swift */,
 			);
 			path = "memory game";
 			sourceTree = "<group>";
@@ -86,6 +91,7 @@
 		FB4223951CA040D3009E025D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FB78BFDA1CD3778900112CC6 /* layer_sli_bg1.jpg */,
 				FB4223961CA040FD009E025D /* unnamed.png */,
 			);
 			name = Images;
@@ -150,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB42238E1CA03BA5009E025D /* LaunchScreen.storyboard in Resources */,
+				FB78BFDB1CD3778900112CC6 /* layer_sli_bg1.jpg in Resources */,
 				FB42238B1CA03BA5009E025D /* Assets.xcassets in Resources */,
 				FB4223971CA040FD009E025D /* unnamed.png in Resources */,
 				FB4223861CA03BA5009E025D /* Main.storyboard in Resources */,
@@ -164,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB4223891CA03BA5009E025D /* memory_game.xcdatamodeld in Sources */,
+				FB78BFDD1CD378E600112CC6 /* VCMenu.swift in Sources */,
 				FB4223BE1CA42FC1009E025D /* GameController.swift in Sources */,
 				FB690D7B1CD26E200055CA40 /* User.swift in Sources */,
 				FB4223831CA03BA5009E025D /* ViewController.swift in Sources */,
